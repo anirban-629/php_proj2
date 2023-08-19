@@ -13,15 +13,13 @@ Route::get('/', function () {
     );
 });
 
-// single list
-Route::get('/listings/{id}', function ($id) {
-    $list = Listing::find($id);
-    if ($list) {
-        return view(
-            'listing',
-            [
-                'list' => $list
-            ]
-        );
-    } else abort(404);
+//? single list
+//? Route Model Binding.
+Route::get('/listings/{list}', function (Listing $list) {
+    return view(
+        'listing',
+        [
+            'list' => $list
+        ]
+    );
 });
