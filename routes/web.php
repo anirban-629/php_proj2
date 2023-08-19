@@ -1,25 +1,18 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view(
-        'listings',
-        [
-            'heading' => 'Listings',
-            'lists' => Listing::all()
-        ]
-    );
-});
+Route::get('/', [ListingController::class, 'index']);
+Route::get('/listings/{list}', [ListingController::class, 'show']);
 
-//? single list
-//? Route Model Binding.
-Route::get('/listings/{list}', function (Listing $list) {
-    return view(
-        'listing',
-        [
-            'list' => $list
-        ]
-    );
-});
+
+// Naming Conventions
+// index- Show all listings
+// show- Show single listing
+// create— Show form to create new listing
+// store— Store new listing
+// edit- Show form to edit listing
+// update- Update listing
+// destroy— Delete listing

@@ -20,6 +20,10 @@ factory:
 
 - php artisan make:factory ListingFactory
 
+controllers:
+
+- php artisan make:controller ListingController
+
 other commandes:(Necessary)
 
 - php artisan view:clear
