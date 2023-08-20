@@ -4,13 +4,17 @@ use App\Http\Controllers\ListingController;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
-// ? All listings
+// ? All Listings
 Route::get('/', [ListingController::class, 'index']);
-// ? Show create form
+// ? Show Create Form
 Route::get('/listings/create', [ListingController::class, 'create']);
-// ? Store listing data
+// ? Store Listing Data
 Route::post('/listings', [ListingController::class, 'store']);
-// ? Single listing
+// ? Show Edit Form
+Route::get('/listings/{list}/edit', [ListingController::class, 'edit']);
+// ? Update Listing
+Route::put('/listings/{list}/edit', [ListingController::class, 'update']);
+// ? Single Listing
 Route::get('/listings/{list}', [ListingController::class, 'show']);
 
 // Naming Conventions
