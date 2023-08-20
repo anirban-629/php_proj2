@@ -20,7 +20,7 @@ class ListingController extends Controller
                 // 'lists' => Listing::latest()->filter(request(['tag', 'search']))->get(),
 
                 'lists' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6),
-                
+
                 // 'lists' => Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(2),
             ]
         );
@@ -56,6 +56,11 @@ class ListingController extends Controller
             'tags' => 'required',
             'description' => 'required',
         ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
         Listing::create($formFields);
         // Session::flash("message","Listing created successfully");
         return redirect('/')->with("message", "Listing created successfully");

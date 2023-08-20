@@ -33,3 +33,7 @@ other commandes:(Necessary)
 vendor:
 
 - php artisan vendor:publish
+
+linking public folder with storage public folder:
+
+- php artisan storage:link
