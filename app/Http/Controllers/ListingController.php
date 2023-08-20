@@ -17,7 +17,11 @@ class ListingController extends Controller
                 'heading' => 'Listings',
                 // 'lists' => Listing::all()
                 // 'lists' => Listing::latest()->get(),
-                'lists' => Listing::latest()->filter(request(['tag', 'search']))->get(),
+                // 'lists' => Listing::latest()->filter(request(['tag', 'search']))->get(),
+
+                'lists' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6),
+                
+                // 'lists' => Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(2),
             ]
         );
     }
