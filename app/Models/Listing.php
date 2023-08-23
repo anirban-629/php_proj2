@@ -9,16 +9,11 @@ class Listing extends Model
 {
     use HasFactory;
 
-    // ! Instead of this we can add Model::unguard() to appServiceProvider.php
-    // protected $fillable = [
-    //     'title', 'company', 'location', 'website', 'email', 'tags', 'description'
-    // ];
 
     public function scopeFilter($query, array $filters)
     {
-        if ($filters['tag'] ?? false) { // if this filter is not false
+        if ($filters['tag'] ?? false) {
             $query->where('tags', 'like', '%' . request('tag') . '%');
-            // Where tags like '%lara%;
         }
         if ($filters['search'] ?? false) {
             $query->where('title', 'like', '%' . request('search') . '%')
@@ -28,7 +23,6 @@ class Listing extends Model
         }
     }
 
-    // Relationship to user
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
