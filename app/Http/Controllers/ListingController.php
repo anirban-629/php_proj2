@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use PhpParser\Node\Expr\List_;
 
 class ListingController extends Controller
 {
@@ -61,6 +60,7 @@ class ListingController extends Controller
         if ($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        $formFields['user_id'] = auth()->id();
 
         Listing::create($formFields);
         // Session::flash("message","Listing created successfully");
@@ -79,6 +79,9 @@ class ListingController extends Controller
     // Store listing data
     public function update(Request $request, Listing $list)
     {
+        // Make sure that user is the owner of the listing
+        if ($list->user_id != auth()->id()) abort(403, "Unauthorized action");
+
         $formFields = $request->validate([
             'title' => 'required',
             'company' => ['required'],
@@ -101,7 +104,17 @@ class ListingController extends Controller
     // Delete Listing
     public function destroy(Listing $list)
     {
+        if ($list->user_id != auth()->id()) abort(403, "Unauthorized action");
         $list->delete();
         return redirect('/')->with('message', 'Listing deleted successfully');
+    }
+
+    // Manage Listing
+    // Manage Listing
+    public function manage()
+    {
+        $listings = auth()->user()->listings; // Retrieve listings associated with the authenticated user
+
+        return view('listings.manage', ['listings' => $listings]);
     }
 }

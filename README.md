@@ -37,3 +37,7 @@ vendor:
 linking public folder with storage public folder:
 
 - php artisan storage:link
+
+other:
+
+- php artisan tinker
